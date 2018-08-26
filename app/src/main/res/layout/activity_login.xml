@@ -53,7 +53,7 @@
 
 
             <EditText
-                android:id="@+id/editText_last_name"
+                android:id="@+id/editText_login_password"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:layout_height="match_parent"
