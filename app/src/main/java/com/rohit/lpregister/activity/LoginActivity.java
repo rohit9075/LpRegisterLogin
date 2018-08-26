@@ -1,11 +1,13 @@
 package com.rohit.lpregister.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rohit.lpregister.R;
 import com.rohit.lpregister.database.DatabaseHelper;
@@ -18,6 +20,8 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
     private Button mButtonLogin;
 
     private TextView mTextViewRegister, mTextViewAdminLogin, mTextViewForgotPassword;
+
+    private DatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
 
     public void initObject(){
 
+        mDatabaseHelper = new DatabaseHelper(this);
 
     }
 
@@ -75,17 +80,32 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
 
             case R.id.button_login:
 
+                candidateLogin();
                 break;
 
             case R.id.textView_admin:
+
+                Toast.makeText(this, "Admin Login Clicked", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.textView_register:
+                Intent mIntentRegister = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(mIntentRegister);
                 break;
 
             case R.id.textView_forgot_password:
                 break;
         }
 
+    }
+
+    private void candidateLogin() {
+        boolean login = mDatabaseHelper.checkCandidate(mEditTextEmail.getText().toString().trim(),mEditTextPassword.getText().toString().trim());
+
+        if (login){
+            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "Invalid id and password", Toast.LENGTH_SHORT).show();
+        }
     }
 }

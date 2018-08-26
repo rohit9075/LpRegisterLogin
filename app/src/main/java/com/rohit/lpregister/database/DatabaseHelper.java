@@ -89,41 +89,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-//    public boolean checkCandidate(String email, String password) {
-//
-//        // array of columns to fetch
-//        String[] columns = {COLUMN_CANDIDATE_ID};
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        // selection criteria
-//        String selection = COLUMN_CANDIDATE_EMAIL + " = ?" + " AND " + COLUMN_CANDIDATE_PASSWORD + " = ?";
-//
-//        // selection arguments
-//        String[] selectionArgs = {email, password};
-//
-//        // query candidate table with conditions
-//        /**
-//         * Here query function is used to fetch records from candidate table this function works like we use sql query.
-//         * SQL query equivalent to this query function is
-//         * SELECT user_id FROM candidate WHERE user_email = 'jack@androidtutorialshub.com' AND user_password = 'qwerty';
-//         */
-//        Cursor cursor = db.query(TABLE_CAN, //Table to query
-//                columns,                    //columns to return
-//                selection,                  //columns for the WHERE clause
-//                selectionArgs,              //The values for the WHERE clause
-//                null,                       //group the rows
-//                null,                       //filter by row groups
-//                null);                      //The sort order
-//
-//        int cursorCount = cursor.getCount();
-//
-//        cursor.close();
-//        db.close();
-//        if (cursorCount > 0) {
-//            return true;
-//        }
-//
-//        return false;
-//    }
+    public boolean checkCandidate(String email, String password) {
+
+        // array of columns to fetch
+        String[] columns = {Constants.COLUMN_CANDIDATE_EMAIL};
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        String selection = Constants.COLUMN_CANDIDATE_EMAIL + " = ?" + " AND " + Constants.COLUMN_CANDIDATE_PASSWORD + " = ?";
+
+        // selection arguments
+        String[] selectionArgs = {email, password};
+
+        // query candidate table with conditions
+        /*
+         * Here query function is used to fetch records from candidate table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id FROM candidate WHERE user_email = 'jack@androidtutorialshub.com' AND user_password = 'qwerty';
+         */
+        Cursor cursor = db.query(Constants.TABLE_CANDIDATE, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+
+        int cursorCount = cursor.getCount();
+
+        cursor.close();
+        db.close();
+
+        return cursorCount > 0;
+
+    }
 //
 //    public boolean updateCandidate(User candidate, byte[] data) {
 //        SQLiteDatabase db = this.getWritableDatabase();
